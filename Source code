@@ -1,1 +1,86 @@
+#include <iostream>
+#include <string>
+using namespace std;
 
+class Encryptor {
+private:
+    int key;
+
+public:
+    // Constructor to initialize the key
+    Encryptor(int k) : key(k) {}
+
+    // Encrypt function
+    string encrypt(const string& text) const {
+        string result = "";
+        for (int i = 0; i < text.length(); i++) {
+            char c = text[i];
+            
+            // Check if the character is uppercase (A-Z)
+            if (c >= 'A' && c <= 'Z') {
+                result += (c - 'A' + key) % 26 + 'A';
+            }
+            // Check if the character is lowercase (a-z)
+            else if (c >= 'a' && c <= 'z') {
+                result += (c - 'a' + key) % 26 + 'a';
+            }
+            // If it's not a letter, keep it unchanged
+            else {
+                result += c;
+            }
+        }
+        return result;
+    }
+
+    // Decrypt function
+    string decrypt(const string& text) const {
+        // Decryption is achieved by shifting in the opposite direction
+        int decryptKey = 26 - key;
+        string result = "";
+        for (int i = 0; i < text.length(); i++) {
+            char c = text[i];
+            
+            // Check if the character is uppercase (A-Z)
+            if (c >= 'A' && c <= 'Z') {
+                result += (c - 'A' + decryptKey) % 26 + 'A';
+            }
+            // Check if the character is lowercase (a-z)
+            else if (c >= 'a' && c <= 'z') {
+                result += (c - 'a' + decryptKey) % 26 + 'a';
+            }
+            // If it's not a letter, keep it unchanged
+            else {
+                result += c;
+            }
+        }
+        return result;
+    }
+};
+
+int main() {
+    string text;
+    int key;
+    int choice;
+
+    cout << "Enter text: ";
+    getline(cin, text);
+
+    cout << "Enter key (1-25): ";
+    cin >> key;
+
+    // Create an instance of Encryptor with the provided key
+    Encryptor encryptor(key);
+
+    cout << "Choose an option:\n1. Encrypt\n2. Decrypt\n";
+    cin >> choice;
+
+    if (choice == 1) {
+        cout << "Encrypted text: " << encryptor.encrypt(text) << endl;
+    } else if (choice == 2) {
+        cout << "Decrypted text: " << encryptor.decrypt(text) << endl;
+    } else {
+        cout << "Invalid choice" << endl;
+    }
+
+    return 0;
+}
