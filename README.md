@@ -1,1 +1,1 @@
-# File-encryption-and-decryption
+This file encryption works as encrypt the file from plain text to coded format and decrpyt file works as decrypt the coded format to plain text. This helps in protecting file from unauthorised  people. So,when tries to access theey can't access without decryption key.
